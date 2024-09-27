@@ -1,0 +1,3 @@
+[32mUpdates 0, num timesteps 1024, FPS 0 
+ Last 8 training episodes: mean/median reward 13.56/12.50, min/max reward -17.00/52.00, success_rate 0.38, loss: 0.09
+[0m

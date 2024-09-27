@@ -8,13 +8,10 @@ from a2c_ppo_acktr.utils import init
 from a2c_ppo_acktr.llava_interface import llava_evaluate, llava_generate
 import torch.nn.init as init
 
-<<<<<<< HEAD
-=======
 # jkc0830
 from a2c_ppo_acktr.llava_interface import dpo_llava_generate, dpo_llava_evaluate
 import re
 
->>>>>>> 45fafb0... DPON
 class Flatten(nn.Module):
     def forward(self, x):
         return x.view(x.size(0), -1)
@@ -105,8 +102,6 @@ class VLMPolicy(nn.Module):
                                         temperature = self.args.temperature,
                                         thought_prob_coef = self.args.thought_prob_coef)
         return value, action_log_prob
-<<<<<<< HEAD
-=======
 
 
 
@@ -170,37 +165,3 @@ class DPOPolicy(nn.Module):
         if self.check_grad:
             print(f"\033[44maction_log_prob after llava_eval RG: {sum_action_log_prob.requires_grad}\033[0m")
         return sum_action_log_prob, act_prob  # 返回策略相关的 log 概率
-
-    # # jkc0919
-    # def evaluate_kl_actions(self, vlm_tokenizer, ref_tokenizer, ref_model, output_ids, img_tensor):
-
-    #     thts_action_txt = vlm_tokenizer.batch_decode(output_ids, skip_special_tokens=True)[0]
-    #      # 定义正则表达式模式
-    #     pattern = r'(?s)(.*)"action"\s*:\s*"([^"]+)"'
-
-    #     # 使用 finditer 提取所有匹配项
-    #     matches = re.search(pattern, str(thts_action_txt))
-
-    #     if matches:
-        
-    #         thts_sentence = matches.group(1)  # 获取最后一个action之前的文本
-    #         action_sentence = matches.group(2)  # 获取最后一个action之后的句子
-    #         print(f"\033[41m{thts_sentence}\033[31m]\n{action_sentence}\033[0m")
-    #         # remaining_text = thts_action_txt[last_match.end():]  # 获取最后一个action之后的剩余文本
-    #         input_ids=vlm_tokenizer(thts_sentence, return_tensors="pt")
-    #         output_ids=vlm_tokenizer('"action":' + action_sentence, return_tensors="pt")
-            
-    #         input_ids_ref=ref_tokenizer(thts_sentence, return_tensors="pt")
-    #         output_ids_ref=ref_tokenizer('"action":' + action_sentence, return_tensors="pt")
-    #         with torch.no_grad():
-    #             ref_prob = dpo_kl_llava_evaluate(ref_model, input_ids_ref, output_ids_ref, img_tensor, self.args.temperature)
-    #         prob = dpo_kl_llava_evaluate(self.base, input_ids, output_ids, img_tensor, self.args.temperature)
-
-    #         ref_prob += 0.00001
-    #         kl_div = torch.log(prob) * torch.log(prob/ref_prob)
-    #         return kl_div
-    #     else:
-    #         print(thts_action_txt)
-    #         raise Exception("\033[31m NO ACTION \033[0m")
- 
->>>>>>> 45fafb0... DPON

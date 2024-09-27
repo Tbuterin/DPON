@@ -4,8 +4,6 @@ from typing import List
 from alfworld.agents.environment.alfred_thor_env import AlfredThorEnv
 from alfworld.agents.utils.misc import get_templated_task_desc
 from alf_utils import AlfEnv
-<<<<<<< HEAD
-=======
 random.seed(1001)
 
 def get_dpo_prompt(env_name, obs, admissible_actions, history="", action_only = False):
@@ -50,7 +48,6 @@ def get_dpo_prompt(env_name, obs, admissible_actions, history="", action_only = 
         qs = qs + "\"action\": \"{an admissible action}\"\n\}"
     return qs
 
->>>>>>> 45fafb0... DPON
 
 def get_alfworld_prompt(env_name, obs, admissible_actions, action_only = False):
     """

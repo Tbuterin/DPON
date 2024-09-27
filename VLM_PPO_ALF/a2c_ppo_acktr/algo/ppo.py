@@ -131,8 +131,6 @@ class PPO():
         dist_entropy_epoch /= grad_step
 
         return value_loss_epoch, action_loss_epoch, dist_entropy_epoch
-<<<<<<< HEAD
-=======
 
 
 
@@ -451,4 +449,3 @@ class DPO():
 
         return losses, chosen_rewards, rejected_rewards
 
->>>>>>> 45fafb0... DPON

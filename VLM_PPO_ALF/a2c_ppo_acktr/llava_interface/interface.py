@@ -94,8 +94,6 @@ def llava_evaluate(value_model, input_ids, output_ids, image_tensor, temperature
     action_tokens_log_prob = torch.sum(selected_log_probs[:,match_index-1:], dim = 1)
     sum_log_prob = thought_prob_coef*thought_log_prob + action_tokens_log_prob
     return values, sum_log_prob, action_tokens_log_prob
-<<<<<<< HEAD
-=======
 
 
 
@@ -170,12 +168,17 @@ def dpo_llava_evaluate(policy_model, input_ids, output_ids, image_tensor, temper
 
     selected_log_probs = output_ids_mask * torch.take_along_dim(log_probs[:, input_token_len:-1], output_ids[:,1:].unsqueeze(2), dim = 2).squeeze(2)
     if check_grad: print(f"\033[44mdpo_llava_eval.selected_log_probs requires grad: {selected_log_probs.requires_grad}\033[0m")
-    # unfolded = output_ids.unfold(dimension=-1, size=3, step=1)
-    unfolded = output_ids.unfold(dimension=-1, size=2, step=1)
+    unfolded = output_ids.unfold(dimension=-1, size=3, step=1)
+    # unfolded = output_ids.unfold(dimension=-1, size=2, step=1)
     # target = torch.tensor([29908,2467,1115]).to(base.device)  # 获取action的标记
-    target = torch.tensor([1774, 1264]).to(base.device)  # jkc0927🌟
+    target = torch.tensor([28739, 1774, 1264]).to(base.device)  # jkc0927🌟
     matches = (unfolded == target).all(dim=-1)
     match_index = matches.nonzero(as_tuple=True)[-1]  # 获取的最后一个action🌟
+    if not match_index.shape[0] > 1:
+        target = torch.tensor([345, 1774, 1264]).to(base.device)
+        matches = (unfolded == target).all(dim=-1)
+        match_index = matches.nonzero(as_tuple=True)[-1]
+
     if match_index.shape[0] > 1:
         match_index = match_index[-1].unsqueeze(0)
     else:
@@ -195,4 +198,3 @@ def dpo_llava_evaluate(policy_model, input_ids, output_ids, image_tensor, temper
     return sum_log_prob, action_tokens_log_prob  # 修改：移除了values的返回
 
 
->>>>>>> 45fafb0... DPON
