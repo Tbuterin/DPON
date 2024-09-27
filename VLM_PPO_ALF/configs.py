@@ -362,14 +362,14 @@ class RLArguments:
 class StepDPOConfig(DPOConfig):
     data_path: str = field(default="xinlai/math-step-dpo-10K")
     prompt: str = field(default="alpaca")
-
-<<<<<<< HEAD
-=======
-    # jkc0904
+    label_smoothing: float = field(default=0.)
+    reference_free: bool = field(default=False)
     use_ipo: bool = field(default=False)
+
+    # jkc0904
     history_embedding: bool = field(default=True)
     max_pairs: int = field(default=int(64), metadata={"help": "number of DPO data pairs"})
-    max_history_tokens: int = field(default=128)
+    max_history_tokens: int = field(default=512)
 
     start_training_pair_nums: int = field(default=4, metadata={"help": "how many pairs of data should we have before starting update"})
     history_horizon: int = field(default=3)  # @TODO
@@ -397,4 +397,3 @@ class StepDPOConfig(DPOConfig):
     test_sft: bool = field(default=False)
     use_return: bool = field(default=True)
 
->>>>>>> 45fafb0... DPON
